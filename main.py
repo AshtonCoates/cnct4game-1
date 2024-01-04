@@ -1,12 +1,11 @@
-print("question 1")
-score = 0
 
-ans = input("does syphr suck")
 
-if ans == "yes":
-    score = score + 1
-    print("correct!")
-else:
-    print("False!Q!!!!!!Q!!!! HE DOES")
+x = int(input ('what is your number'))
 
-print("your score was:", score)
+if x % 2 == 0:
+
+    print("bruh")
+
+    if x = 0 
+print ("i am iron Man \n" * 100)
+
