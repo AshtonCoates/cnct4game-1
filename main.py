@@ -1,3 +1,4 @@
+
 import pygame
 import sys
 from board import Board
@@ -85,4 +86,3 @@ while True:
 
     # Cap the frame rate
     pygame.time.Clock().tick(60)
-    
