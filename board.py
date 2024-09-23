@@ -36,7 +36,7 @@ class Board:
         successfully dropped to know whether to switch the player or not, so this should return true if the piece was
         dropped and false if the column was full.
         '''
-        pass
+        return True
 
     def check_win(self) -> bool:
         '''

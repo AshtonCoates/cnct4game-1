@@ -62,10 +62,7 @@ def display_winner(winner):
                     pygame.quit()
                     sys.exit()
 
-
 board = Board()
-board.board[5][4] = 1
-board.board[4][4] = 2
 
 # Main game loop
 while True:
@@ -75,7 +72,7 @@ while True:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
-            col = (x - 50) // 100
+            col = (x) // 100
             successful_drop = board.drop_piece(col)
             if successful_drop:
                 create_board(board.board)
