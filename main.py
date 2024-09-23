@@ -1,18 +1,6 @@
 import pygame
 import sys
-
-'''
-General game info:
-
-The grid will be 6 rows x 7 columns, so it will look like this:
-
-0000000
-0000000
-0000000
-0000000
-0000000
-0000000
-'''
+from board import Board
 
 # Initialize Pygame
 pygame.init()
@@ -39,12 +27,45 @@ for col in col_intervals:
 
 # this is some stuff to keep track of and display the pieces, we call them "sprites"
 class Counter(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, player):
         super().__init__()
-        self.image = pygame.Surface((50, 50))  # Create a square surface for the sprite
-        self.image.fill((255, 0, 0))  # Fill the surface with a red color
+        self.image = pygame.Surface((90, 90), pygame.SRCALPHA)  # Create a square surface for the sprite
         self.rect = self.image.get_rect()  # Get the rectangle that encloses the sprite
+        if player == 1:
+            pygame.draw.circle(self.image, (255, 0, 0), (45, 45), 45)
+        elif player == 2:
+            pygame.draw.circle(self.image, (255, 255, 0), (45, 45), 45)
 
+pieces = pygame.sprite.Group()
+
+def create_board(board):
+    pieces.empty()
+    for row_index, row in enumerate(board):
+        for col_index, piece in enumerate(row):
+            if piece != 0:
+                counter = Counter(piece)
+                counter.rect.x = col_intervals[col_index] - 45
+                counter.rect.y = row_intervals[row_index] - 45
+                pieces.add(counter)
+    pieces.update()
+    pieces.draw(screen)
+
+def display_winner(winner):
+    while True:
+            font = pygame.font.Font(None, 72)
+            text = font.render(f"Player {winner} wins!", True, (255, 255, 255))
+            text_rect = text.get_rect(center=(width // 2, height // 2))
+            screen.blit(text, text_rect)
+            pygame.display.flip()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+
+board = Board()
+board.board[5][4] = 1
+board.board[4][4] = 2
 
 # Main game loop
 while True:
@@ -52,7 +73,19 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos()
+            col = (x - 50) // 100
+            successful_drop = board.drop_piece(col)
+            if successful_drop:
+                create_board(board.board)
+                if board.check_win():
+                    display_winner(board.player)
+                board.switch_player()
 
     # Update the display
     pygame.display.flip()
+
+    # Cap the frame rate
+    pygame.time.Clock().tick(60)
     
