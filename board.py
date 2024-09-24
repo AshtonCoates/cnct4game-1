@@ -19,7 +19,15 @@ class Board:
     '''
     
     def __init__(self):
-        self.board = [[0 for _ in range(7)] for _ in range(6)] # this is a fancy thing called list comprehension
+        self.board = [[0 for _ in range(7)] for _ in range(6)] # this is a fancy thing called list comprehension, but it's just doing the same thing as the comment below:
+        '''
+        self.board = [[0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0]]
+        '''
         self.player = 1
 
     def switch_player(self):
